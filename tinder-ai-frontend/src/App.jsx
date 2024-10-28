@@ -1,5 +1,6 @@
 import './App.css'
 import {User, MessageCircle, X, Heart} from 'lucide-react';
+import React,{useState} from 'react';
 
 const ProfileSelector = () => (
   <div className="rounded-lg overflow-hidden bg-white shadow-lg">
@@ -46,15 +47,27 @@ const MatchesList = () => (
   </div>
 );
 
+
 function App() {
+
+  const [currentScreen, setCurrentScreen] = useState('profile');
+
+  const renderScreen = () => {
+    switch (currentScreen) {
+        case 'profile':
+          return <ProfileSelector />;
+        case 'matches':
+          return <MatchesList />;
+      }
+  }
+
   return(<>
   <div className="max-w-md mx-auto p-4">
       <nav className="flex justify-between">
-        <User />
-        <MessageCircle/>
+        <User  onClick={() => setCurrentScreen("profile")}/>
+        <MessageCircle  onClick={() => setCurrentScreen("matches")}/>
       </nav>
-      {/* <ProfileSelector/> */}
-      <MatchesList />
+      {renderScreen()}
   </div>
   </>)
 }
